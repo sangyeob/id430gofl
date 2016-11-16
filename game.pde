@@ -7,10 +7,10 @@ class Game {
 	private GameMode gameMode;
 	private boolean[][] board;
 
-	public Game (int w, int h) {
-		board = new boolean[w][h];
-		board_width = w;
-		board_height = h;
+	public Game () {
+		//board = new boolean[w][h];
+		board_width = 0;
+		board_height = 0;
 		day = 1;
     gameMode = GameMode.EDIT;
 	}
@@ -22,10 +22,11 @@ class Game {
 		board[x][y] = value;
 	}
 
-	public void changeBoard(int w, int h) { 
+	public void changeBoardSize(int w, int h) { 
 		board = new boolean[w][h];
 		board_width = w;
 		board_height = h;
+    gameMode = GameMode.EDIT;
 	}
 	public boolean[][] getBoard() { return board; }
   
@@ -53,6 +54,7 @@ class Game {
 	}
 
 	public void nextDay() {
+    if(gameMode != GameMode.PLAY) return;
 		boolean[][] new_board = new boolean[board_width][board_height];
 		int i, j;
 		for(i = 0; i < board_width; i ++)
