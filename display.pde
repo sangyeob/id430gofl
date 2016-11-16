@@ -1,3 +1,6 @@
+final int MAX_CELL_SIZE = 30;
+final int MIN_CELL_SIZE = 10;
+
 class Display {
 
   private int cellSize;
@@ -9,10 +12,20 @@ class Display {
     this.cellSize=cellSize;
   }
 
-  public void setCellSize(int value) {
-    cellSize=value;
+  //deprecated
+  //public void setCellSize(int value) {
+  //  cellSize=value;
+  //}
+  
+  public void increaseCellSize() {
+    cellSize ++;
+    if(cellSize > MAX_CELL_SIZE) cellSize = MAX_CELL_SIZE;
   }
-
+  
+  public void decreaseCellSize() {
+    cellSize --;
+    if(cellSize < MIN_CELL_SIZE) cellSize = MIN_CELL_SIZE;
+  }
   public void draw() {
     boolean[][] board = game.getBoard();
     int offsetX = (width%cellSize)/2;
