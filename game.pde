@@ -6,17 +6,27 @@ class Game {
 	private int board_height;
 	private GameMode gameMode;
 	private boolean[][] board;
+  private int lastUpdated;
 
 	public Game () {
 		//board = new boolean[w][h];
 		board_width = 0;
 		board_height = 0;
 		day = 1;
+    lastUpdated = 0;
     gameMode = GameMode.EDIT;
 	}
 
+  public void start() {
+    lastUpdated = millis();
+    resetDay();
+    gameMode = GameMode.PLAY;
+  }
+
 	public void resetDay() { day = 1; }
 	public int getDay() { return day; }
+
+  public GameMode getGameMode() { return gameMode; }
 
 	public void editCell(int x, int y, boolean value) {
     if(gameMode != GameMode.EDIT) return;
@@ -53,6 +63,13 @@ class Game {
 		if(cnt == 3) return true;
 		return false;
 	}
+
+  public void refresh() {
+    if(gameMode == GameMode.PLAY && millis() - lastUpdated > 100) {
+      nextDay();
+      lastUpdated = millis();
+    }
+  }
 
 	public void nextDay() {
     if(gameMode != GameMode.PLAY) return;

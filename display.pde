@@ -55,6 +55,7 @@ class Display {
   }
   
   public void draw() {
+    game.refresh();
     boolean[][] board = game.getBoard();
     int offsetX = (width%cellSize)/2;
     int offsetY = (height%cellSize)/2;
@@ -75,6 +76,12 @@ class Display {
         rect(offsetX+savedCellSize*i, offsetY+savedCellSize*j, savedCellSize, savedCellSize);
       }
     }
+    textSize(40);
+    fill(255);
+    if(game.getGameMode() == GameMode.PLAY)
+      text("Day " + game.getDay(), 40, height - 80);
+    else
+      text("Edit Mode", 40, height - 80);
   }
   
 }
