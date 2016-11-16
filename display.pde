@@ -33,7 +33,9 @@ class Display {
   }
   
   public int[] convertPositionToCell(int x, int y){
-    return new int[]{(x-(width%cellSize)/2)/cellSize, (y-(height%cellSize)/2)/cellSize};
+    int[] p =  new int[]{(x-(width%cellSize)/2)/cellSize, (y-(height%cellSize)/2)/cellSize};
+    if(p[0] < 0 || p[1] < 0 || p[0] >= game.getWidth() || p[1] >=game.getHeight()) return new int[] {-1, -1};
+    return p;
   }
   
   public void dragStartEvent() {
@@ -42,6 +44,7 @@ class Display {
   
   public void changeCellEvent(int x, int y) {
     int[] cellPosition = convertPositionToCell(x, y);
+    if(cellPosition[0] == -1) return;
     boolean flag = false;
     for(int[] p: visited) {
       if(p[0] == cellPosition[0] && p[1] == cellPosition[1]) flag = true; 
