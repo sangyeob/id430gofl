@@ -12,6 +12,7 @@ class Game {
 		board_width = w;
 		board_height = h;
 		day = 1;
+    gameMode = GameMode.EDIT;
 	}
 
 	public void resetDay() { day = 1; }
@@ -22,11 +23,14 @@ class Game {
 	}
 
 	public void changeBoard(int w, int h) { 
-		board = new int[w][h];
+		board = new boolean[w][h];
 		board_width = w;
 		board_height = h;
 	}
 	public boolean[][] getBoard() { return board; }
+  
+  public int getWidth() { return board_width; }
+  public int getHeight() { return board_height; }
 
 	private boolean getDestiny(int x, int y)  {
 		int[][] dirs = new int[][] {
