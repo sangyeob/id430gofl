@@ -7,8 +7,8 @@
  */
 
 void setup() {
-	//fullScreen();   // Android
-	size(800, 600); // Decktop
+	fullScreen();   // Android
+	//size(800, 600); // Decktop
 }
 
 void draw() {
