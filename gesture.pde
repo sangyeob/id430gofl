@@ -9,7 +9,7 @@ public boolean surfaceTouchEvent(MotionEvent event) {
 }
 
 void onTap(float x, float y){
-  mousePressed();
+  
 }
 
 void onPinch(float x, float y, float r){
@@ -18,5 +18,11 @@ void onPinch(float x, float y, float r){
   print(x, y, r);
 }
 
+
+void mousePressed(){
+  display.dragStartEvent();
+} 
+
 void mouseDragged(){
+  display.changeCellEvent(mouseX, mouseY);
 }

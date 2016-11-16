@@ -3,6 +3,7 @@ final int MIN_CELL_SIZE = 30;
 
 class Display {
 
+  private ArrayList<int[]> visited;
   private int cellSize;
   private Game game;
 
@@ -11,6 +12,7 @@ class Display {
     this.game=game;
     this.cellSize=cellSize;
     game.changeBoardSize(width / cellSize, height / cellSize);
+    visited = new ArrayList<int[]>();
   }
 
   //deprecated
@@ -34,6 +36,21 @@ class Display {
     return new int[]{(x-(width%cellSize)/2)/cellSize, (y-(height%cellSize)/2)/cellSize};
   }
   
+  public void dragStartEvent() {
+    visited = new ArrayList<int[]>();
+  }
+  
+  public void changeCellEvent(int x, int y) {
+    int[] cellPosition = convertPositionToCell(x, y);
+    boolean flag = false;
+    for(int[] p: visited) {
+      if(p[0] == cellPosition[0] && p[1] == cellPosition[1]) flag = true; 
+    }
+    visited.add(cellPosition);
+    if(!flag)
+      game.editCell(cellPosition[0], cellPosition[1], !game.getBoard()[cellPosition[0]][cellPosition[1]]);
+  }
+  
   public void draw() {
     boolean[][] board = game.getBoard();
     int offsetX = (width%cellSize)/2;
@@ -50,7 +67,7 @@ class Display {
     rectMode(CORNER);
     for (int i=0; i<boardWidth; i++) {
       for (int j=0; j<boardHeight; j++) {
-        if (board[i][j])fill(0, 0, 255);
+        if (board[i][j])fill(255, 255, 0);
         else fill(0);
         rect(offsetX+savedCellSize*i, offsetY+savedCellSize*j, savedCellSize, savedCellSize);
       }

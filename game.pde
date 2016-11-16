@@ -19,6 +19,7 @@ class Game {
 	public int getDay() { return day; }
 
 	public void editCell(int x, int y, boolean value) {
+    if(gameMode != GameMode.EDIT) return;
 		board[x][y] = value;
 	}
 
