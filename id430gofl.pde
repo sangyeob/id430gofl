@@ -6,6 +6,9 @@ Game game;
 Display display;
 KetaiGesture gesture;
 KetaiSensor sensor;
+float avg=0;
+float [] accelero = new float[10];
+int i;
 
 void setup() {
   fullScreen();   // Android
@@ -63,8 +66,20 @@ void mouseDragged() {
 }
 
 void onAccelerometerEvent(float x, float y, float z, long time, int accuracy) {
-	// implement your code here
-	// then call
-	// game.reset();
-	// to reset the game
+  if((x+y+z)/time>Average()){
+    for(int i=0;i<=9;i++) accelero[i]=0;
+    i=0;
+    game.reset();
+  }
+  else{
+    accelero[i]=(x+y+z)/time;
+    i++;
+    if(i>9) i=0;
+  }
+}
+
+float Average(){
+  float sum=0;
+  for(int j=0; j<10; j++) sum+=accelero[j];
+  return sum/10;
 }
