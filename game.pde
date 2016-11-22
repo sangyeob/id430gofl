@@ -1,6 +1,4 @@
-enum GameMode { 
-  EDIT, PLAY
-}
+enum GameMode { EDIT, PLAY, PAUSE }
 
 class Game {
   private int day;
@@ -17,18 +15,25 @@ class Game {
     board_height = 0;
     day = 1;
     lastUpdated = 0;
+    cellCounter = 0;
     gameMode = GameMode.EDIT;
   }
 
-  public void start() {
-    lastUpdated = millis();
-    resetDay();
-    gameMode = GameMode.PLAY;
-  }
-  
-  public int getCellCounter(){
-  return cellCounter;
-  }
+	public void pause() {
+		gameMode = GameMode.PAUSE;
+	}
+
+	public void resume() {
+		lastUpdated = millis();
+		gameMode = GameMode.PLAY;
+	}
+
+	public void reset() {
+		lastUpdated = millis();
+		gameMode = GameMode.EDIT;
+		board = new boolean[board_width][board_height];
+		resetDay();
+	}
 
   public void resetDay() { 
     day = 1;
@@ -36,31 +41,10 @@ class Game {
   public int getDay() { 
     return day;
   }
-
-  public GameMode getGameMode() { 
-    return gameMode;
-  }
-
+ 	public GameMode getGameMode() { return gameMode; }
   public void editCell(int x, int y, boolean value) {
     if (gameMode != GameMode.EDIT) return;
     board[x][y] = value;
-  }
-
-  public void changeBoardSize(int w, int h) { 
-    board = new boolean[w][h];
-    board_width = w;
-    board_height = h;
-    gameMode = GameMode.EDIT;
-  }
-  public boolean[][] getBoard() { 
-    return board;
-  }
-
-  public int getWidth() { 
-    return board_width;
-  }
-  public int getHeight() { 
-    return board_height;
   }
 
   private boolean getDestiny(int x, int y) {
