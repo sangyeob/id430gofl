@@ -78,9 +78,10 @@ class Display {
     }
     textSize(40);
     fill(255);
-    if(game.getGameMode() == GameMode.PLAY)
+    if(game.getGameMode() == GameMode.PLAY){
       text("Day " + game.getDay(), 40, height - 80);
-    else
+      text(game.getCellCounter() + " Alive Cells" , width-250, height - 80);
+    }else
       text("Edit Mode", 40, height - 80);
   }
   
