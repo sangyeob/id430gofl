@@ -19,6 +19,16 @@ class Game {
     gameMode = GameMode.EDIT;
   }
 
+  public void start() {
+    lastUpdated = millis();
+    resetDay();
+    gameMode = GameMode.PLAY;
+  }
+  
+  public int getCellCounter(){
+    return cellCounter;
+  }
+
 	public void pause() {
 		gameMode = GameMode.PAUSE;
 	}
@@ -90,5 +100,22 @@ class Game {
         new_board[i][j] = getDestiny(i, j);
     board = new_board;	
     day ++;
+  }
+  
+  public void changeBoardSize(int w, int h) { 
+    board = new boolean[w][h];
+    board_width = w;
+    board_height = h;
+    gameMode = GameMode.EDIT;
+  }
+  public boolean[][] getBoard() { 
+    return board;
+  }
+
+  public int getWidth() { 
+    return board_width;
+  }
+  public int getHeight() { 
+    return board_height;
   }
 }
