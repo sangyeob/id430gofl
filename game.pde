@@ -1,4 +1,4 @@
-enum GameMode { EDIT, PLAY }
+enum GameMode { EDIT, PLAY, PAUSE }
 
 class Game {
 	private int day;
@@ -6,27 +6,36 @@ class Game {
 	private int board_height;
 	private GameMode gameMode;
 	private boolean[][] board;
-  private int lastUpdated;
+	private int lastUpdated;
 
 	public Game () {
 		//board = new boolean[w][h];
 		board_width = 0;
 		board_height = 0;
 		day = 1;
-    lastUpdated = 0;
-    gameMode = GameMode.EDIT;
+	    lastUpdated = 0;
+	    gameMode = GameMode.EDIT;
 	}
 
-  public void start() {
-    lastUpdated = millis();
-    resetDay();
-    gameMode = GameMode.PLAY;
-  }
+	public void start() {
+		lastUpdated = millis();
+		resetDay();
+		gameMode = GameMode.PLAY;
+	}
+
+	public void pause() {
+		gameMode = GameMode.PAUSE;
+	}
+
+	public void resume() {
+		lastUpdated = millis();
+		gameMode = GameMode.PLAY;
+	}
 
 	public void resetDay() { day = 1; }
 	public int getDay() { return day; }
 
-  public GameMode getGameMode() { return gameMode; }
+ 	public GameMode getGameMode() { return gameMode; }
 
 	public void editCell(int x, int y, boolean value) {
     if(gameMode != GameMode.EDIT) return;
@@ -37,7 +46,7 @@ class Game {
 		board = new boolean[w][h];
 		board_width = w;
 		board_height = h;
-    gameMode = GameMode.EDIT;
+    	gameMode = GameMode.EDIT;
 	}
 	public boolean[][] getBoard() { return board; }
   
