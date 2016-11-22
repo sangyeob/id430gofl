@@ -1,9 +1,11 @@
 import android.view.MotionEvent;
 import ketai.ui.*;
+import ketai.sensors.*;
 
 Game game;
 Display display;
 KetaiGesture gesture;
+KetaiSensor sensor;
 
 void setup() {
   fullScreen();   // Android
@@ -11,6 +13,8 @@ void setup() {
   game = new Game();
   display = new Display(30, game);
   gesture = new KetaiGesture(this);
+  sensor = new KetaiSensor(this);
+  sensor.start();
 }
 
 void draw() {
@@ -56,4 +60,11 @@ void mousePressed() {
 
 void mouseDragged() {
   display.changeCellEvent(mouseX, mouseY);
+}
+
+void onAccelerometerEvent(float x, float y, float z, long time, int accuracy) {
+	// implement your code here
+	// then call
+	// game.reset();
+	// to reset the game
 }
