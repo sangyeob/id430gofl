@@ -32,6 +32,13 @@ class Game {
 		gameMode = GameMode.PLAY;
 	}
 
+	public void reset() {
+		lastUpdated = millis();
+		gameMode = GameMode.EDIT;
+		board = new boolean[board_width][board_height];
+		resetDay();
+	}
+
 	public void resetDay() { day = 1; }
 	public int getDay() { return day; }
 
