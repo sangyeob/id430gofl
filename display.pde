@@ -80,6 +80,8 @@ class Display {
     fill(255);
     if(game.getGameMode() == GameMode.PLAY)
       text("Day " + game.getDay(), 40, height - 80);
+    else if(game.getGameMode() == GameMode.PAUSE)
+      text("Day " + game.getDay() + " - Paused", 40, height - 80);
     else
       text("Edit Mode", 40, height - 80);
   }
